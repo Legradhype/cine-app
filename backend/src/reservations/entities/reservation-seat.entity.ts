@@ -13,7 +13,7 @@ import { Showtime } from '../../showtimes/entities/showtime.entity';
 @Entity('reservation_seats')
 export class ReservationSeat {
   @PrimaryGeneratedColumn()
-  id!: number; // Cambiado a number
+  id!: number;
 
   @ManyToOne(() => Reservation, (reservation) => reservation.seats, {
     onDelete: 'CASCADE',
@@ -22,14 +22,14 @@ export class ReservationSeat {
   reservation!: Reservation;
 
   @Column({ name: 'reservation_id', type: 'int' })
-  reservationId!: number; // Cambiado a number
+  reservationId!: number;
 
   @ManyToOne(() => Showtime, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'showtime_id' })
   showtime!: Showtime;
 
   @Column({ name: 'showtime_id', type: 'int' })
-  showtimeId!: number; // Cambiado a number
+  showtimeId!: number;
 
   @Column({ name: 'row_index', type: 'int' })
   rowIndex!: number;

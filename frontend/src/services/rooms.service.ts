@@ -15,7 +15,7 @@ export const roomsService = {
     return response.data;
   },
 
-  async getById(id: string): Promise<Room> {
+async getById(id: number): Promise<Room> {
     const response = await api.get<Room>(`/rooms/${id}`);
     return response.data;
   },
@@ -25,12 +25,11 @@ export const roomsService = {
     return response.data;
   },
 
-  async update(id: string, payload: UpdateRoomPayload): Promise<Room> {
+async update(id: number, payload: Partial<Room>): Promise<Room> {
     const response = await api.put<Room>(`/rooms/${id}`, payload);
     return response.data;
   },
-
-  async delete(id: string): Promise<void> {
+ async delete(id: number): Promise<void> {
     await api.delete(`/rooms/${id}`);
   },
 };

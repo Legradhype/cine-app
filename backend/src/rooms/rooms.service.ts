@@ -33,7 +33,7 @@ export class RoomsService {
     return this.roomsRepository.find({ order: { name: 'ASC' } });
   }
 
-  // Cambiado a number
+
   async findOne(id: number): Promise<Room> {
     const room = await this.roomsRepository.findOne({ where: { id } });
     if (!room) {
@@ -42,7 +42,6 @@ export class RoomsService {
     return room;
   }
 
-  // Cambiado a number
   async update(id: number, updateRoomDto: UpdateRoomDto): Promise<Room> {
     const room = await this.findOne(id);
 

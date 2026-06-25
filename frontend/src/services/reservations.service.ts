@@ -2,7 +2,7 @@ import api from '../api/axios';
 import { Reservation, ReservationSeat, SeatPosition } from '../types';
 
 export interface CreateReservationPayload {
-  showtimeId: string;
+  showtimeId: number;
   seats: SeatPosition[];
 }
 
@@ -17,19 +17,19 @@ export const reservationsService = {
     return response.data;
   },
 
-  async getOccupiedSeats(showtimeId: string): Promise<ReservationSeat[]> {
+  async getOccupiedSeats(showtimeId: number): Promise<ReservationSeat[]> {
     const response = await api.get<ReservationSeat[]>(
       `/reservations/showtime/${showtimeId}/seats`,
     );
     return response.data;
   },
 
- cancel: async (id: number) => {
+  cancel: async (id: number) => {
     const response = await api.patch(`/reservations/${id}/cancel`);
     return response.data;
   },
 
-  async getById(id: string): Promise<Reservation> {
+  async getById(id: number): Promise<Reservation> {
     const response = await api.get<Reservation>(`/reservations/${id}`);
     return response.data;
   },

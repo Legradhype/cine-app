@@ -21,7 +21,6 @@ export class ShowtimesService {
     private readonly roomsService: RoomsService,
   ) {}
 
-  // Cambiado roomId y excludeId a number
   private async checkOverlap(
     roomId: number,
     startTime: Date,
@@ -81,7 +80,6 @@ export class ShowtimesService {
     });
   }
 
-  // Cambiado movieId a number
   async findByMovie(movieId: number): Promise<Showtime[]> {
     return this.showtimesRepository.find({
       where: { movieId },
@@ -90,7 +88,6 @@ export class ShowtimesService {
     });
   }
 
-  // Cambiado id a number
   async findOne(id: number): Promise<Showtime> {
     const showtime = await this.showtimesRepository.findOne({
       where: { id },
@@ -104,7 +101,6 @@ export class ShowtimesService {
     return showtime;
   }
 
-  // Cambiado id a number
   async update(id: number, updateShowtimeDto: UpdateShowtimeDto): Promise<Showtime> {
     const showtime = await this.findOne(id);
 
@@ -141,13 +137,13 @@ export class ShowtimesService {
     return this.showtimesRepository.save(showtime);
   }
 
-  // Cambiado id a number
+
   async remove(id: number): Promise<void> {
     const showtime = await this.findOne(id);
     await this.showtimesRepository.remove(showtime);
   }
 
-  // Cambiado id a number
+
   async findOneWithRoom(id: number): Promise<Showtime> {
     const showtime = await this.showtimesRepository.findOne({
       where: { id },

@@ -41,7 +41,7 @@ export class Showtime {
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   price!: number;
 
-  // Alineado con el VARCHAR(20) de tu script SQL
+
   @Column({
     type: 'varchar',
     length: 20,

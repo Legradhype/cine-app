@@ -7,7 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
-  ParseIntPipe, // Reemplazado ParseUUIDPipe por ParseIntPipe
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { RoomsService } from './rooms.service';

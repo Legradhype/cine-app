@@ -33,9 +33,9 @@ const AdminMoviesPage: React.FC = () => {
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [uploadingPosterId, setUploadingPosterId] = useState<string | null>(null);
+  const [uploadingPosterId, setUploadingPosterId] = useState<number | null>(null);
   const { getErrorMessage } = useApiError();
 
   const fetchMovies = async () => {
@@ -134,8 +134,7 @@ const AdminMoviesPage: React.FC = () => {
       setDeleteId(null);
     }
   };
-
-  const handlePosterUpload = async (movieId: string, file: File) => {
+  const handlePosterUpload = async (movieId: number, file: File) => {
     setUploadingPosterId(movieId);
     try {
       const updated = await moviesService.uploadPoster(movieId, file);
@@ -163,8 +162,6 @@ const AdminMoviesPage: React.FC = () => {
           <i className="bi bi-plus-circle me-2"></i>Nueva película
         </button>
       </div>
-
-      {/* Modal Formulario */}
       {showForm && (
         <div
           className="modal fade show d-block modal-cine"
@@ -309,8 +306,6 @@ const AdminMoviesPage: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Lista de películas */}
       {isLoading ? (
         <LoadingSpinner text="Cargando películas..." />
       ) : movies.length === 0 ? (

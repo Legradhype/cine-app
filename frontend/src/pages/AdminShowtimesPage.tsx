@@ -8,8 +8,8 @@ import ConfirmDialog from '../components/ConfirmDialog';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 interface FormState {
-  movieId: string;
-  roomId: string;
+  movieId: number | '';
+  roomId: number | '';
   startTime: string;
   endTime: string;
   price: number;
@@ -43,7 +43,7 @@ const AdminShowtimesPage: React.FC = () => {
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const { getErrorMessage } = useApiError();
 
@@ -65,7 +65,6 @@ const AdminShowtimesPage: React.FC = () => {
       setMovies(moviesData);
       setRooms(roomsData);
     } catch {
-      // silent
     } finally {
       setIsLoading(false);
     }
@@ -74,6 +73,27 @@ const AdminShowtimesPage: React.FC = () => {
   useEffect(() => {
     void fetchAll();
   }, [fetchAll]);
+
+  // LÓGICA AGREGADA: Cálculo automático de la hora de fin
+  useEffect(() => {
+    if (!form.movieId || !form.startTime) return;
+
+    const selectedMovie = movies.find((m) => m.id === Number(form.movieId));
+    if (!selectedMovie) return;
+
+    const start = new Date(form.startTime);
+    if (isNaN(start.getTime())) return;
+
+    const end = new Date(start.getTime() + selectedMovie.durationMinutes * 60000);
+
+    const pad = (n: number) => String(n).padStart(2, '0');
+    const formattedEndTime = `${end.getFullYear()}-${pad(end.getMonth() + 1)}-${pad(end.getDate())}T${pad(end.getHours())}:${pad(end.getMinutes())}`;
+
+    setForm((prev) => {
+      if (prev.endTime === formattedEndTime) return prev;
+      return { ...prev, endTime: formattedEndTime };
+    });
+  }, [form.movieId, form.startTime, movies]);
 
   const openCreate = () => {
     setEditingShowtime(null);
@@ -121,10 +141,9 @@ const AdminShowtimesPage: React.FC = () => {
     }
 
     setIsSubmitting(true);
-
     const payload: CreateShowtimePayload = {
-      movieId: form.movieId,
-      roomId: form.roomId,
+      movieId: Number(form.movieId),
+      roomId: Number(form.roomId),
       startTime: new Date(form.startTime).toISOString(),
       endTime: new Date(form.endTime).toISOString(),
       price: Number(form.price),
@@ -214,7 +233,6 @@ const AdminShowtimesPage: React.FC = () => {
         </button>
       </div>
 
-      {/* Modal Formulario */}
       {showForm && (
         <div
           className="modal fade show d-block modal-cine"
@@ -256,7 +274,7 @@ const AdminShowtimesPage: React.FC = () => {
                         id="showtime-movie"
                         className="form-select-cine form-select"
                         value={form.movieId}
-                        onChange={(e) => setForm({ ...form, movieId: e.target.value })}
+                        onChange={(e) => setForm({ ...form, movieId: e.target.value ? Number(e.target.value) : '' })}
                         required
                       >
                         <option value="">Seleccionar película</option>
@@ -276,7 +294,7 @@ const AdminShowtimesPage: React.FC = () => {
                         id="showtime-room"
                         className="form-select-cine form-select"
                         value={form.roomId}
-                        onChange={(e) => setForm({ ...form, roomId: e.target.value })}
+                        onChange={(e) => setForm({ ...form, roomId: e.target.value ? Number(e.target.value) : '' })}
                         required
                       >
                         <option value="">Seleccionar sala</option>
@@ -304,14 +322,15 @@ const AdminShowtimesPage: React.FC = () => {
 
                     <div className="col-md-6">
                       <label htmlFor="showtime-end" className="form-label-cine d-block">
-                        Fecha y hora de fin *
+                        Fecha y hora de fin * <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 'normal', marginLeft: '5px' }}>(Automático)</span>
                       </label>
                       <input
                         id="showtime-end"
                         type="datetime-local"
                         className="form-control-cine form-control"
                         value={form.endTime}
-                        onChange={(e) => setForm({ ...form, endTime: e.target.value })}
+                        readOnly // LÓGICA AGREGADA: El usuario no lo edita a mano
+                        style={{ backgroundColor: 'rgba(255,255,255,0.05)', cursor: 'not-allowed', color: 'var(--color-text-muted)' }}
                         required
                       />
                     </div>

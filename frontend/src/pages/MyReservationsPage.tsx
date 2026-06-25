@@ -10,7 +10,7 @@ const MyReservationsPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   
-  // Cambiado estrictamente a number | null
+
   const [cancellingId, setCancellingId] = useState<number | null>(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -35,7 +35,6 @@ const MyReservationsPage: React.FC = () => {
     void fetchReservations();
   }, []);
 
-  // Cambiado estrictamente a number
   const handleCancelRequest = (id: number) => {
     setSelectedId(id);
     setShowConfirm(true);

@@ -20,7 +20,7 @@ export const moviesService = {
     return response.data;
   },
 
-  async getById(id: string): Promise<Movie> {
+  async getById(id: number): Promise<Movie> {
     const response = await api.get<Movie>(`/movies/${id}`);
     return response.data;
   },
@@ -30,16 +30,16 @@ export const moviesService = {
     return response.data;
   },
 
-  async update(id: string, payload: UpdateMoviePayload): Promise<Movie> {
+  async update(id: number, payload: UpdateMoviePayload): Promise<Movie> {
     const response = await api.put<Movie>(`/movies/${id}`, payload);
     return response.data;
   },
 
-  async delete(id: string): Promise<void> {
+  async delete(id: number): Promise<void> {
     await api.delete(`/movies/${id}`);
   },
 
-  async uploadPoster(id: string, file: File): Promise<Movie> {
+  async uploadPoster(id: number, file: File): Promise<Movie> {
     const formData = new FormData();
     formData.append('poster', file);
     const response = await api.patch<Movie>(`/movies/${id}/poster`, formData, {

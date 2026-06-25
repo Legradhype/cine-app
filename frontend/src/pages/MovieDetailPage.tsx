@@ -29,7 +29,7 @@ const MovieDetailPage: React.FC = () => {
     const fetchMovie = async () => {
       setIsLoading(true);
       try {
-        const data = await moviesService.getById(id);
+        const data = await moviesService.getById(Number(id));
         setMovie(data);
       } catch {
         setError('No se pudo cargar la película.');
@@ -140,7 +140,6 @@ const MovieDetailPage: React.FC = () => {
           <i className="bi bi-arrow-left me-1"></i>Volver
         </button>
 
-        {/* Movie Info */}
         <div className="row g-4 mb-5">
           <div className="col-md-3 text-center text-md-start">
             {posterSrc ? (
@@ -187,7 +186,6 @@ const MovieDetailPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Showtimes */}
         <div className="row g-4">
           <div className="col-md-4">
             <h2 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '1rem' }}>

@@ -22,7 +22,7 @@ const AdminRoomsPage: React.FC = () => {
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const { getErrorMessage } = useApiError();
 
@@ -32,7 +32,6 @@ const AdminRoomsPage: React.FC = () => {
       const data = await roomsService.getAll();
       setRooms(data);
     } catch {
-      // silent
     } finally {
       setIsLoading(false);
     }

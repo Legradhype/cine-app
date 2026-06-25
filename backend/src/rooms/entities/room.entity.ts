@@ -10,7 +10,6 @@ import { Showtime } from '../../showtimes/entities/showtime.entity';
 
 @Entity('rooms')
 export class Room {
-  // ¡AQUÍ ESTÁ LA CORRECCIÓN! Cambiamos de 'uuid' (string) a entero (number)
   @PrimaryGeneratedColumn()
   id!: number;
 
