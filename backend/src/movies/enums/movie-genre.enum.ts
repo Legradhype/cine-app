@@ -1,0 +1,17 @@
+export enum MovieGenre {
+  ACCION = 'Acción',
+  AVENTURA = 'Aventura',
+  ANIMACION = 'Animación',
+  COMEDIA = 'Comedia',
+  CRIMEN = 'Crimen',
+  DOCUMENTAL = 'Documental',
+  DRAMA = 'Drama',
+  FANTASIA = 'Fantasía',
+  TERROR = 'Terror',
+  MUSICAL = 'Musical',
+  MISTERIO = 'Misterio',
+  ROMANCE = 'Romance',
+  CIENCIA_FICCION = 'Ciencia Ficción',
+  SUSPENSO = 'Suspenso',
+  WESTERN = 'Western',
+}

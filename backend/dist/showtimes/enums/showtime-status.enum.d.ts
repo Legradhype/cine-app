@@ -1,0 +1,6 @@
+export declare enum ShowtimeStatus {
+    SCHEDULED = "SCHEDULED",
+    ACTIVE = "ACTIVE",
+    FINISHED = "FINISHED",
+    CANCELLED = "CANCELLED"
+}
